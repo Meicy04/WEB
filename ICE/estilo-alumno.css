@@ -1,0 +1,118 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    color: #003366;
+}
+
+
+.menu {
+    width: 260px;
+    float: left;
+    padding: 10px 0;
+    box-sizing: border-box;
+}
+
+.accordion {
+    background-color: #003366;
+    color: white;
+    cursor: pointer;
+    padding: 12px 16px;
+    width: 90%;
+    margin: 10px auto;
+    text-align: left;
+    border: none;
+    outline: none;
+    font-weight: bold;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: background-color 0.2s ease, color 0.2s ease;
+    display: block;
+}
+
+.accordion:hover,
+.accordion.active {
+    background-color: #2575fc;
+    color: #ffffff;
+}
+
+.panel {
+    display: none;
+    flex-direction: column;
+    background-color: #f9f9f9;
+    border-radius: 0 0 8px 8px;
+    border-top: 1px solid #ccc;
+    padding: 10px;
+    width: 90%;
+    margin: 0 auto 10px auto;
+    box-sizing: border-box;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.panel button {
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    padding: 8px 0;
+    cursor: pointer;
+    font-size: 14px;
+    color: #003366;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 6px;
+}
+
+.panel button:hover {
+    background-color: #003366;
+    color: white;
+}
+
+
+.contenido {
+    margin-left: 260px;
+    padding: 20px;
+    color: #003366;
+}
+
+.contenido h2 {
+    text-align: center;
+}
+
+.contenido p {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.contenido a {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+    color: #003366;
+}
+
+.contenido a:hover {
+    color: #2575fc;
+}
+
+/* RESPONSIVO para pantallas pequeñas */
+@media screen and (max-width: 768px) {
+    .menu {
+        width: 100%;
+        float: none;
+        padding: 0;
+    }
+
+    .accordion, .panel {
+        width: 95%;
+        margin: 10px auto;
+    }
+
+    .contenido {
+        margin-left: 0;
+        padding: 15px;
+    }
+}
