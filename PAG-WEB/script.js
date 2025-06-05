@@ -1,16 +1,16 @@
-document.querySelectorAll('.accordion').forEach(button => {
-    button.addEventListener('click', () => {
-      const panel = button.nextElementSibling;
-  
-      // Cerrar todos los paneles
-      document.querySelectorAll('.panel').forEach(p => {
-        if (p !== panel) {
-          p.classList.remove('show');
-        }
-      });
-  
-      // Alternar el panel actual
-      panel.classList.toggle('show');
-    });
-  });
-  
+// Función para mostrar el modal
+function mostrarAvisos() {
+    document.getElementById('avisoModal').style.display = 'flex';
+}
+
+// Función para cerrar el modal
+function cerrarModal() {
+    document.getElementById('avisoModal').style.display = 'none';
+}
+
+// Detectar clics fuera del modal para cerrarlo
+window.onclick = function(event) {
+    if (event.target === document.getElementById('avisoModal')) {
+        cerrarModal();
+    }
+}

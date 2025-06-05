@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="login-form">
+        <h2>Iniciar Sesión</h2>
+        <form action="login.php" method="POST" id="loginForm">
+            <input type="text" name="usuario" placeholder="Usuario" required>
+            <input type="password" name="contrasena" placeholder="Contraseña" required>
+            <button type="submit">Entrar</button>
+        </form>
+        <!-- Mostrar error si viene ?error=1 -->
+        <?php if (isset($_GET['error']) && $_GET['error'] == 1): ?>
+            <div style="color:red; margin-top:10px;">
+                Usuario o contraseña incorrectos.
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
+
+<button class="aviso-btn" onclick="mostrarAvisos()">Avisos</button>
+
+<div id="avisoModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModal()">&times;</span>
+        <h3>Avisos</h3>
+        <ul>
+            <li>Recuerda cambiar tu contraseña cada 3 meses.</li>
+            <li>No compartas tu usuario y contraseña.</li>
+            <li>Actualiza tu información de contacto regularmente.</li>
+        </ul>
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
