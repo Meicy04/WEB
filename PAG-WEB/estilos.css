@@ -1,28 +1,31 @@
 /* Estilo general del acordeón */
+body {
+    background-image: url('https://www.digitalmex.mx/media/k2/items/cache/4590ea7f54a6cd1209c598b842d382c1_XL.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 .accordion {
-    background-color: #003366;
-    color: white;
-    cursor: pointer;
-    padding: 8px 12px;
-    width: 100%;
+    background-color: #e9f1fb;
+    color: #003366;
+    font-weight: bold;
+    padding: 6px 10px;               
+    margin: 6px 0;                  
+    width: fit-content;            
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, color 0.3s ease;
     text-align: left;
-    border: none;
-    outline: none;
-    font-size: 14px;
-    transition: 0.3s ease;
-    border-radius: 6px;
-    margin-bottom: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.accordion:hover {
+.accordion:hover,
+.accordion.active {
     background-color: #2575fc;
     color: white;
 }
 
-/* Estilo del panel */
 .panel {
-    padding: 0 15px; /* Ajustar el padding para coincidir con el acordeón */
+    padding: 0 15px;
     background-color: #f9f9f9;
     display: none;
     overflow: hidden;
@@ -31,23 +34,20 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     color: #003366;
     font-size: 14px;
-    height: auto; /* Asegura que el panel se ajuste al contenido */
+    height: auto;
     transition: height 0.3s ease;
 }
 
-/* Animación de apertura */
 .panel.show {
     display: block;
-    height: auto; /* El panel se ajustará al contenido */
 }
 
-/* Botones del acordeón, ahora más pequeños y alineados con el estilo del menú lateral */
 .accordion {
     background-color: #e9f1fb;
     color: #003366;
     font-weight: bold;
-    padding: 10px 15px; /* Botones más pequeños */
-    margin: 10px 0; /* Espaciado entre botones */
+    padding: 10px 15px; 
+    margin: 10px 0; 
     width: 90%;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -61,7 +61,6 @@
     color: white;
 }
 
-/* Contenedor de botones alineados en columna a la derecha */
 .button-container {
     position: absolute;
     top: 20px;
@@ -72,10 +71,9 @@
     z-index: 10;
 }
 
-/* Estilo de los botones */
 .button-container a {
     text-decoration: none;
-    padding: 0.6em 1.2em; /* Botones más pequeños */
+    padding: 0.6em 1.2em;
     background-color: #003366;
     color: #ffffff;
     border-radius: 6px;
@@ -88,4 +86,23 @@
 .button-container a:hover {
     background-color: #2575fc;
     color: #ffffff;
+}
+
+/*pantallas chikitasxd*/
+@media screen and (max-width: 768px) {
+    .menu {
+        width: 100%;
+        float: none;
+        padding: 0;
+    }
+
+    .accordion, .panel {
+        width: 95%;
+        margin: 10px auto;
+    }
+
+    .contenido {
+        margin-left: 0;
+        padding: 15px;
+    }
 }
