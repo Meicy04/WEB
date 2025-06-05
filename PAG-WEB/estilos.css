@@ -1,0 +1,91 @@
+/* Estilo general del acordeón */
+.accordion {
+    background-color: #003366;
+    color: white;
+    cursor: pointer;
+    padding: 8px 12px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    transition: 0.3s ease;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.accordion:hover {
+    background-color: #2575fc;
+    color: white;
+}
+
+/* Estilo del panel */
+.panel {
+    padding: 0 15px; /* Ajustar el padding para coincidir con el acordeón */
+    background-color: #f9f9f9;
+    display: none;
+    overflow: hidden;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    color: #003366;
+    font-size: 14px;
+    height: auto; /* Asegura que el panel se ajuste al contenido */
+    transition: height 0.3s ease;
+}
+
+/* Animación de apertura */
+.panel.show {
+    display: block;
+    height: auto; /* El panel se ajustará al contenido */
+}
+
+/* Botones del acordeón, ahora más pequeños y alineados con el estilo del menú lateral */
+.accordion {
+    background-color: #e9f1fb;
+    color: #003366;
+    font-weight: bold;
+    padding: 10px 15px; /* Botones más pequeños */
+    margin: 10px 0; /* Espaciado entre botones */
+    width: 90%;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-align: left;
+}
+
+.accordion:hover,
+.accordion.active {
+    background-color: #2575fc;
+    color: white;
+}
+
+/* Contenedor de botones alineados en columna a la derecha */
+.button-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 10;
+}
+
+/* Estilo de los botones */
+.button-container a {
+    text-decoration: none;
+    padding: 0.6em 1.2em; /* Botones más pequeños */
+    background-color: #003366;
+    color: #ffffff;
+    border-radius: 6px;
+    transition: background-color 0.3s, color 0.3s;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.button-container a:hover {
+    background-color: #2575fc;
+    color: #ffffff;
+}
