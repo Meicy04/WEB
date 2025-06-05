@@ -7,33 +7,23 @@ if (!isset($_SESSION['usuario'])) {
     exit();
 }
 
-$usuario = $_SESSION['usuario'];
-
 $conn = new mysqli('localhost', 'root', '', 'sistema_web');
 if ($conn->connect_error) {
-    echo json_encode([]);
+    echo json_encode(['error' => 'Error de conexión: ' . $conn->connect_error]);
     exit();
 }
 
-// Obtener materias guardadas por usuario
-$sql = "SELECT m.nombre, m.grupo, m.horario FROM materias m
-        JOIN horarios_seleccionados h ON m.id = h.materia_id
-        WHERE h.usuario = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $usuario);
-$stmt->execute();
-$result = $stmt->get_result();
+$usuario = $conn->real_escape_string($_SESSION['usuario']);
+$sql = "SELECT materias FROM horarios_seleccionados WHERE usuario = '$usuario' LIMIT 1";
+$result = $conn->query($sql);
 
-$materias = [];
-while ($row = $result->fetch_assoc()) {
-    $materias[] = [
-        'nombre' => $row['nombre'],
-        'grupo' => $row['grupo'],
-        'horario' => $row['horario']
-    ];
+if ($result && $result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $materias = json_decode($row['materias'], true);
+    echo json_encode($materias);
+} else {
+    echo json_encode([]);
 }
-$stmt->close();
-$conn->close();
 
-echo json_encode($materias);
+$conn->close();
 ?>

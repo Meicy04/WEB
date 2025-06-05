@@ -12,74 +12,73 @@ if (!isset($_SESSION['usuario'])) {
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
 
-  <meta charset="UTF-8">
-  <title>SCENet</title>
-  <link rel="stylesheet" href="estilo-alumno.css">
-  <style>
-    /* Contenedor para materias y autohorario al lado del menú */
-    #materias-container {
-      width: 260px;
-      float: left;
-      margin-left: 10px;
-      background: #f1f1f1;
-      padding: 10px;
-      border-radius: 8px;
-      max-height: 600px;
-      overflow-y: auto;
-      box-sizing: border-box;
-      font-size: 14px;
-      color: #003366;
-    }
-    #materias-container h3 {
-      text-align: center;
-      margin-top: 0;
-    }
-    #materias-list {
-      max-height: 300px;
-      overflow-y: auto;
-      border: 1px solid #ccc;
-      padding: 5px;
-      background: white;
-      border-radius: 4px;
-      margin-bottom: 10px;
-    }
-    #materias-list label {
-      display: block;
-      margin-bottom: 5px;
-      cursor: pointer;
-    }
-    #autohorario-btn {
-      background-color: #003366;
-      color: white;
-      border: none;
-      padding: 10px;
-      border-radius: 6px;
-      width: 100%;
-      cursor: pointer;
-      margin-bottom: 10px;
-    }
-    #autohorario-btn:hover {
-      background-color: #2575fc;
-    }
-    #combinaciones {
-      max-height: 150px;
-      overflow-y: auto;
-      background: white;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-      padding: 5px;
-    }
-    #combinaciones div {
-      margin-bottom: 8px;
-      cursor: pointer;
-      padding: 5px;
-      border-radius: 4px;
-    }
-    #combinaciones div:hover {
-      background-color: #003366;
-      color: white;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>SCENet</title>
+    <link rel="stylesheet" href="estilo-alumno.css">
+    <style>
+      #materias-container {
+        width: 260px;
+        float: left;
+        margin-left: 10px;
+        background: #f1f1f1;
+        padding: 10px;
+        border-radius: 8px;
+        max-height: 600px;
+        overflow-y: auto;
+        box-sizing: border-box;
+        font-size: 14px;
+        color: #003366;
+      }
+      #materias-container h3 {
+        text-align: center;
+        margin-top: 0;
+      }
+      #materias-list {
+        max-height: 300px;
+        overflow-y: auto;
+        border: 1px solid #ccc;
+        padding: 5px;
+        background: white;
+        border-radius: 4px;
+        margin-bottom: 10px;
+      }
+      #materias-list label {
+        display: block;
+        margin-bottom: 5px;
+        cursor: pointer;
+      }
+      #autohorario-btn {
+        background-color: #003366;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 6px;
+        width: 100%;
+        cursor: pointer;
+        margin-bottom: 10px;
+      }
+      #autohorario-btn:hover {
+        background-color: #2575fc;
+      }
+      #combinaciones {
+        max-height: 150px;
+        overflow-y: auto;
+        background: white;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        padding: 5px;
+      }
+      #combinaciones div {
+        margin-bottom: 8px;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 4px;
+      }
+      #combinaciones div:hover {
+        background-color: #003366;
+        color: white;
+      }
+    </style>
 </head>
 <body>
 
@@ -106,7 +105,7 @@ if (!isset($_SESSION['usuario'])) {
     <div class="panel">
       <button id="btn-horario">Horario</button>
       <button id="btn-materias-semestre">Materias</button>
-      <div id="semestre-actual" style="margin-top:10px; font-size:14px; color:#003366;"></div>
+      <div id="semestreActual" style="margin-top:10px; font-size:14px; color:#003366;"></div>
     </div>
 
     <button class="accordion">GLOBALES</button>
@@ -119,7 +118,7 @@ if (!isset($_SESSION['usuario'])) {
     <div class="panel">
       <button id="btn-formulario">Formulario</button>
       <button id="btn-pagos">Pagos</button>
-      <!-- Aquí agregamos el subbotón Materias -->
+      <!-- Subbotón Materias -->
       <button id="btn-materias-reinscripcion">Materias</button>
     </div>
 
@@ -147,186 +146,215 @@ if (!isset($_SESSION['usuario'])) {
       <button>Tutorías</button>
     </div>
 
+    <button class="accordion">CALENDARIO ESCOLAR</button>
+    <div class="panel">
+      <button>Fechas Importantes</button>
+      <button>Exámenes</button>
+    </div>
+
+    <button class="accordion">CONTACTO</button>
+    <div class="panel">
+      <button>Soporte</button>
+      <button>Administración</button>
+    </div>
+    
     <button class="accordion">CERRAR SESION</button>
     <div class="panel">
       <a href="../INICIO_DE_SESION/logout.php">Salir</a>
     </div>
   </div>
 
-  <!-- Contenedor para mostrar materias y autohorario -->
+  <!-- Contenedor de materias y autohorario para reinscripción -->
   <div id="materias-container" style="display:none;">
-    <h3>Materias para reinscripción</h3>
+    <h3>Materias para Reinscripción</h3>
     <div id="materias-list">Cargando materias...</div>
-    <button id="autohorario-btn">Generar Autohorarios</button>
+    <button id="autohorario-btn" disabled>Generar Autohorarios</button>
     <div id="combinaciones"></div>
   </div>
 
+
+  <div id="semestreActual">
+    <!-- Aquí se mostrará el horario guardado -->
+  </div>
+
 <script>
-// Manejo de acordeón sin cambios
-const accordions = document.querySelectorAll(".accordion");
-accordions.forEach(btn => {
-  btn.addEventListener("click", () => {
-    const isActive = btn.classList.contains("active");
+// Código para acordeones menú (sin cambios)
+var acc = document.getElementsByClassName("accordion");
+for (let i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    let panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
 
-    accordions.forEach(otherBtn => {
-      otherBtn.classList.remove("active");
-      const otherPanel = otherBtn.nextElementSibling;
-      otherPanel.style.display = "none";
-    });
+      // Si es el panel SEMESTRE ACTUAL y se cierra, limpiamos el horario
+      if (this.textContent.trim() === "SEMESTRE ACTUAL") {
+        document.getElementById('semestreActual').innerHTML = "";
+      }
 
-    if (!isActive) {
-      btn.classList.add("active");
-      const panel = btn.nextElementSibling;
-      panel.style.display = "flex";
-    }
-
-    // Ocultar contenedor materias si no está REINSCRIPCION
-    if(btn.textContent === "REINSCRIPCION" && !isActive) {
-      document.getElementById('materias-container').style.display = "block";
-      cargarMaterias();
     } else {
-      document.getElementById('materias-container').style.display = "none";
-      document.getElementById('combinaciones').innerHTML = "";
+      panel.style.display = "block";
     }
   });
-});
+}
 
-// Función para cargar materias desde PHP
+const btnMateriasReinscripcion = document.getElementById('btn-materias-reinscripcion');
+const materiasContainer = document.getElementById('materias-container');
+const materiasList = document.getElementById('materias-list');
+const autohorarioBtn = document.getElementById('autohorario-btn');
+const combinacionesDiv = document.getElementById('combinaciones');
+
+btnMateriasReinscripcion.onclick = () => {
+  if (materiasContainer.style.display === 'none' || materiasContainer.style.display === '') {
+    materiasContainer.style.display = 'block';
+    cargarMaterias();
+  } else {
+    materiasContainer.style.display = 'none';
+    materiasList.innerHTML = '';
+    combinacionesDiv.innerHTML = '';
+  }
+};
+
 function cargarMaterias() {
+  materiasList.innerHTML = "Cargando materias...";
+  combinacionesDiv.innerHTML = "";
+  autohorarioBtn.disabled = true;
+
   fetch('get_materias.php')
     .then(res => res.json())
     .then(data => {
-      const materiasList = document.getElementById('materias-list');
-      materiasList.innerHTML = "";
-      data.forEach(materia => {
-        const label = document.createElement('label');
-        label.innerHTML = `<input type="checkbox" value="${materia.id}" data-horario="${materia.horario}" data-nombre="${materia.nombre}"> 
-          ${materia.nombre} - Grupo: ${materia.grupo} - Créditos: ${materia.creditos} - Horario: ${materia.horario}`;
-        materiasList.appendChild(label);
-      });
-    })
-    .catch(() => {
-      document.getElementById('materias-list').innerHTML = "Error cargando materias.";
-    });
-}
+      if (!Array.isArray(data)) data = [];
 
-// Función para detectar empalmes
-function hayEmpalme(horario1, horario2) {
-  // Horario ejemplo: "Lunes 8:00-10:00"
-  function parseHorario(h) {
-    const [dia, horas] = h.split(' ');
-    const [inicio, fin] = horas.split('-');
-    return { dia, inicio: parseInt(inicio.replace(':','')), fin: parseInt(fin.replace(':','')) };
-  }
-  const h1 = parseHorario(horario1);
-  const h2 = parseHorario(horario2);
-
-  if (h1.dia !== h2.dia) return false;
-  return !(h1.fin <= h2.inicio || h2.fin <= h1.inicio);
-}
-
-// Función para generar autohorarios (2 combinaciones)
-function generarAutohorarios() {
-  const checkboxes = [...document.querySelectorAll('#materias-list input[type=checkbox]')];
-  const materias = checkboxes.filter(c => c.checked);
-
-  if (materias.length === 0) {
-    alert('Selecciona al menos una materia para generar autohorarios.');
-    return;
-  }
-
-  // Filtrar materias por sus horarios y evitar empalmes y repeticiones
-  // Algoritmo simple: buscaremos combinaciones de materias sin empalmes
-  const combinaciones = [];
-  
-  function backtrack(combinacion, start) {
-    if (combinacion.length > 0) {
-      combinaciones.push([...combinacion]);
-      if (combinaciones.length >= 2) return; // Solo 2 combinaciones
-    }
-    for (let i = start; i < materias.length; i++) {
-      const nueva = materias[i];
-      // Verificar empalmes con materias en combinacion
-      let empalme = false;
-      for (const mat of combinacion) {
-        if (hayEmpalme(mat.dataset.horario, nueva.dataset.horario) || mat.value === nueva.value) {
-          empalme = true;
-          break;
-        }
-      }
-      if (!empalme) {
-        combinacion.push(nueva);
-        backtrack(combinacion, i + 1);
-        combinacion.pop();
-      }
-    }
-  }
-  
-  backtrack([], 0);
-
-  // Mostrar combinaciones en #combinaciones
-  const contenedor = document.getElementById('combinaciones');
-  contenedor.innerHTML = "";
-  if (combinaciones.length === 0) {
-    contenedor.innerHTML = "<i>No se encontraron combinaciones sin empalmes.</i>";
-    return;
-  }
-  combinaciones.forEach((combo, idx) => {
-    const div = document.createElement('div');
-    div.textContent = `Combinación ${idx + 1}: ` + combo.map(m => m.dataset.nombre).join(', ');
-    div.onclick = () => seleccionarCombinacion(combo);
-    contenedor.appendChild(div);
-  });
-}
-
-// Guardar selección en servidor
-function seleccionarCombinacion(combo) {
-  const ids = combo.map(m => m.value);
-  fetch('guardar_horario.php', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({ materias: ids })
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
-      alert('Horario guardado correctamente.');
-      mostrarHorarioGuardado();
-    } else {
-      alert('Error guardando horario.');
-    }
-  });
-}
-
-// Mostrar horario guardado en Semestre Actual
-function mostrarHorarioGuardado() {
-  fetch('get_horario.php')
-    .then(res => res.json())
-    .then(data => {
-      const cont = document.getElementById('semestre-actual');
-      if (!data || !data.length) {
-        cont.innerHTML = "<b>No tienes materias seleccionadas para este semestre.</b>";
+      if (data.length === 0) {
+        materiasList.innerHTML = "No hay materias disponibles.";
         return;
       }
-      let html = "<b>Horario Guardado:</b><br>";
+
+      materiasList.innerHTML = "";
       data.forEach(m => {
-        html += `${m.nombre} - Grupo: ${m.grupo} - Horario: ${m.horario}<br>`;
+        const label = document.createElement('label');
+        label.innerHTML = `<input type="checkbox" value="${m.id}"> 
+          ${m.nombre} (Grupo ${m.grupo}) - ${m.creditos} créditos - ${m.seriada ? 'Seriada' : 'No seriada'}<br>
+          <small>Horario: ${m.horario}</small>`;
+        materiasList.appendChild(label);
       });
-      cont.innerHTML = html;
+
+      // Habilitar autohorario solo si hay selección
+      const checkboxes = materiasList.querySelectorAll('input[type=checkbox]');
+      checkboxes.forEach(cb => cb.addEventListener('change', () => {
+        autohorarioBtn.disabled = !Array.from(checkboxes).some(c => c.checked);
+        combinacionesDiv.innerHTML = "";
+      }));
+    })
+    .catch(() => {
+      materiasList.innerHTML = "Error cargando materias.";
     });
 }
 
-// Event listeners
-document.getElementById('btn-materias-reinscripcion').addEventListener('click', () => {
-  // Mostrar el contenedor lateral y cargar materias
-  document.getElementById('materias-container').style.display = "block";
-  cargarMaterias();
+// Función para parsear horarios a minutos y día
+function parseHorario(h) {
+  const [dia, horas] = h.split(' ');
+  const [inicio, fin] = horas.split('-');
+  function toMinutes(t) {
+    const [hh, mm] = t.split(':').map(Number);
+    return hh * 60 + mm;
+  }
+  return { dia, inicio: toMinutes(inicio), fin: toMinutes(fin) };
+}
+
+// Comprobar si dos horarios empalman
+function empalme(h1, h2) {
+  if (h1.dia !== h2.dia) return false;
+  return (h1.inicio < h2.fin && h2.inicio < h1.fin);
+}
+
+// genera combinaciones sin empalmes y sin repetir materias
+autohorarioBtn.onclick = () => {
+  const seleccionadas = Array.from(materiasList.querySelectorAll('input[type=checkbox]:checked'))
+    .map(cb => {
+      // Buscar materia completa por id en la lista
+      const label = cb.parentElement.innerText;
+
+      return {
+        id: cb.value,
+        nombre: label.split(' (Grupo')[0],
+        horario: label.match(/Horario: (.+)/)[1].trim()
+      };
+    });
+
+  const resultados = [];
+  function backtrack(start, comb) {
+    if (comb.length >= 2) {
+      resultados.push([...comb]);
+      if (resultados.length >= 2) return; // Solo 2 combinaciones
+    }
+    for (let i = start; i < seleccionadas.length; i++) {
+      const mat = seleccionadas[i];
+      // Verificar si mat empalma con alguna en comb
+      const matHorario = parseHorario(mat.horario);
+      const choque = comb.some(m => empalme(parseHorario(m.horario), matHorario));
+      if (!choque) {
+        comb.push(mat);
+        backtrack(i + 1, comb);
+        comb.pop();
+      }
+      if (resultados.length >= 2) return;
+    }
+  }
+
+  resultados.length = 0;
+  backtrack(0, []);
+
+  combinacionesDiv.innerHTML = "";
+  if (resultados.length === 0) {
+    combinacionesDiv.innerHTML = "<i>No se encontraron combinaciones sin empalmes.</i>";
+    return;
+  }
+
+  resultados.forEach((combo, idx) => {
+    const div = document.createElement('div');
+    div.textContent = `Opción ${idx + 1}: ` + combo.map(m => m.nombre + " (" + m.horario + ")").join(", ");
+    div.onclick = () => {
+      guardarHorarioUsuario(combo);
+      alert("Horario guardado. Puedes verlo en SEMESTRE ACTUAL > Horario.");
+      combinacionesDiv.innerHTML = "";
+      materiasContainer.style.display = 'none';
+    };
+    combinacionesDiv.appendChild(div);
+  });
+};
+
+function guardarHorarioUsuario(horario) {
+  const usuario = "<?php echo $_SESSION['usuario']; ?>";
+  localStorage.setItem('horario_' + usuario, JSON.stringify(horario));
+}
+
+const btnHorario = document.getElementById('btn-horario');
+const divHorario = document.getElementById('semestreActual');
+
+btnHorario.addEventListener('click', () => {
+  if (divHorario.innerHTML.trim() !== "") {
+    divHorario.innerHTML = "";
+  } else {
+    mostrarHorarioGuardado();
+  }
 });
 
-document.getElementById('autohorario-btn').addEventListener('click', generarAutohorarios);
-
-// Mostrar horario guardado al cargar la página y en Semestre Actual
-window.onload = mostrarHorarioGuardado;
+function mostrarHorarioGuardado() {
+  const usuario = "<?php echo $_SESSION['usuario']; ?>";
+  let horario = localStorage.getItem('horario_' + usuario);
+  if (!horario) {
+    divHorario.innerHTML = "<i>No hay horario guardado.</i>";
+    return;
+  }
+  horario = JSON.parse(horario);
+  let html = "<h4>Horario guardado para " + usuario + ":</h4><ul>";
+  horario.forEach(m => {
+    html += `<li>${m.nombre} - Horario: ${m.horario}</li>`;
+  });
+  html += "</ul>";
+  divHorario.innerHTML = html;
+}
 </script>
 
 </body>

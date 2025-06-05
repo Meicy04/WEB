@@ -3,42 +3,46 @@ session_start();
 header('Content-Type: application/json');
 
 if (!isset($_SESSION['usuario'])) {
-    echo json_encode(['success' => false, 'msg' => 'No autorizado']);
+    echo json_encode(['error' => 'No autenticado']);
+    exit();
+}
+
+$conn = new mysqli('localhost', 'root', '', 'sistema_web');
+if ($conn->connect_error) {
+    echo json_encode(['error' => 'Error de conexión: ' . $conn->connect_error]);
     exit();
 }
 
 $data = json_decode(file_get_contents('php://input'), true);
-
-if (!isset($data['materias']) || !is_array($data['materias'])) {
-    echo json_encode(['success' => false, 'msg' => 'Datos inválidos']);
+if (!isset($data['materias'])) {
+    echo json_encode(['error' => 'Datos de materias no recibidos']);
     exit();
 }
 
-$usuario = $_SESSION['usuario'];
-$materias = $data['materias'];
+$usuario = $conn->real_escape_string($_SESSION['usuario']);
+$materias_json = $conn->real_escape_string(json_encode($data['materias']));
 
-$conn = new mysqli('localhost', 'root', '', 'sistema_web');
-if ($conn->connect_error) {
-    echo json_encode(['success' => false, 'msg' => 'Error de conexión']);
-    exit();
+// Verificar si ya hay horario guardado para el usuario
+$sql_check = "SELECT id FROM horarios_seleccionados WHERE usuario = '$usuario' LIMIT 1";
+$result = $conn->query($sql_check);
+
+if ($result && $result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $id = $row['id'];
+    $sql_update = "UPDATE horarios_seleccionados SET materias = '$materias_json', fecha_seleccion = NOW() WHERE id = $id";
+    if ($conn->query($sql_update)) {
+        echo json_encode(['success' => true]);
+    } else {
+        echo json_encode(['error' => 'Error al actualizar horario: ' . $conn->error]);
+    }
+} else {
+    $sql_insert = "INSERT INTO horarios_seleccionados (usuario, materias, fecha_seleccion) VALUES ('$usuario', '$materias_json', NOW())";
+    if ($conn->query($sql_insert)) {
+        echo json_encode(['success' => true]);
+    } else {
+        echo json_encode(['error' => 'Error al guardar horario: ' . $conn->error]);
+    }
 }
 
-// Tabla para guardar horario por usuario, por ejemplo:
-// horarios_seleccionados(usuario VARCHAR, materia_id INT)
-// Primero borramos lo que tenía el usuario
-$stmt = $conn->prepare("DELETE FROM horarios_seleccionados WHERE usuario = ?");
-$stmt->bind_param("s", $usuario);
-$stmt->execute();
-$stmt->close();
-
-// Insertamos las materias seleccionadas
-$stmt = $conn->prepare("INSERT INTO horarios_seleccionados (usuario, materia_id) VALUES (?, ?)");
-foreach ($materias as $id) {
-    $stmt->bind_param("si", $usuario, $id);
-    $stmt->execute();
-}
-$stmt->close();
-
-echo json_encode(['success' => true]);
 $conn->close();
 ?>
