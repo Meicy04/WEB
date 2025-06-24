@@ -1,25 +1,21 @@
-/* Estilo general del acordeón */
-body {
-    background-image: url('https://www.digitalmex.mx/media/k2/items/cache/4590ea7f54a6cd1209c598b842d382c1_XL.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
+
 .accordion {
-    background-color: #e9f1fb;
-    color: #003366;
-    font-weight: bold;
-    padding: 6px 10px;               
-    margin: 6px 0;                  
-    width: fit-content;            
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    background-color: #003366;
+    color: white;
+    cursor: pointer;
+    padding: 8px 12px;
+    width: 100%;
     text-align: left;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    transition: 0.3s ease;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.accordion:hover,
-.accordion.active {
+.accordion:hover {
     background-color: #2575fc;
     color: white;
 }
@@ -34,13 +30,16 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     color: #003366;
     font-size: 14px;
-    height: auto;
+    height: auto; 
     transition: height 0.3s ease;
 }
 
+
 .panel.show {
     display: block;
+    height: auto; 
 }
+
 
 .accordion {
     background-color: #e9f1fb;
@@ -71,6 +70,7 @@ body {
     z-index: 10;
 }
 
+
 .button-container a {
     text-decoration: none;
     padding: 0.6em 1.2em;
@@ -86,23 +86,4 @@ body {
 .button-container a:hover {
     background-color: #2575fc;
     color: #ffffff;
-}
-
-/*pantallas chikitasxd*/
-@media screen and (max-width: 768px) {
-    .menu {
-        width: 100%;
-        float: none;
-        padding: 0;
-    }
-
-    .accordion, .panel {
-        width: 95%;
-        margin: 10px auto;
-    }
-
-    .contenido {
-        margin-left: 0;
-        padding: 15px;
-    }
 }
