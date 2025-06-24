@@ -1,15 +1,15 @@
-/* Estilos generales */
+
 body {
     margin: 0;
     font-family: 'Arial', sans-serif;
-    background: url('https://www.digitalmex.mx/media/k2/items/cache/4590ea7f54a6cd1209c598b842d382c1_XL.jpg');
-    background-size: cover;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     color: #003366;
 }
+
+
 .container {
     display: flex;
     justify-content: center;
@@ -17,6 +17,7 @@ body {
     width: 100%;
     height: 100%;
 }
+
 
 .login-form {
     background: rgba(255, 255, 255, 0.95);
@@ -76,7 +77,6 @@ body {
     background-color: #2575fc;
 }
 
-
 .modal {
     display: none;
     position: fixed;
@@ -117,22 +117,4 @@ body {
     font-size: 20px;
     cursor: pointer;
     color: #003366;
-}
-/*pantallas chikitasxd*/
-@media screen and (max-width: 768px) {
-    .menu {
-        width: 100%;
-        float: none;
-        padding: 0;
-    }
-
-    .accordion, .panel {
-        width: 95%;
-        margin: 10px auto;
-    }
-
-    .contenido {
-        margin-left: 0;
-        padding: 15px;
-    }
 }

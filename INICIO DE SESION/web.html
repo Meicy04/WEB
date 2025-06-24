@@ -7,7 +7,16 @@
     <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
-
+    <style>
+        body {
+            background-image: url(https://www.digitalmex.mx/media/k2/items/cache/4590ea7f54a6cd1209c598b842d382c1_XL.jpg);
+            background-size: cover;       
+            background-repeat: no-repeat; 
+            background-attachment: fixed;  
+            margin: 0;                    
+            height: 100vh;               
+        }
+    </style>
 <div class="container">
     <div class="login-form">
         <h2>Iniciar Sesión</h2>
@@ -16,7 +25,7 @@
             <input type="password" name="contrasena" placeholder="Contraseña" required>
             <button type="submit">Entrar</button>
         </form>
-        <!-- Mostrar error si viene ?error=1 -->
+
         <?php if (isset($_GET['error']) && $_GET['error'] == 1): ?>
             <div style="color:red; margin-top:10px;">
                 Usuario o contraseña incorrectos.

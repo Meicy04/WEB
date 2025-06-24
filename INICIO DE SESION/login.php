@@ -11,7 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die('Error de conexión: ' . $conn->connect_error);
     }
 
-    // Uso seguro con consultas preparadas
     $sql = $conn->prepare("SELECT * FROM usuarios WHERE usuario = ? AND contrasena = ?");
     $sql->bind_param("ss", $usuario, $contrasena);
     $sql->execute();
