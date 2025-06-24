@@ -22,7 +22,6 @@ if (!isset($data['materias'])) {
 $usuario = $conn->real_escape_string($_SESSION['usuario']);
 $materias_json = $conn->real_escape_string(json_encode($data['materias']));
 
-// Verificar si ya hay horario guardado para el usuario
 $sql_check = "SELECT id FROM horarios_seleccionados WHERE usuario = '$usuario' LIMIT 1";
 $result = $conn->query($sql_check);
 
